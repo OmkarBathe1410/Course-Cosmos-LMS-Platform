@@ -1,0 +1,50 @@
+# Node.js dependencies
+node_modules
+
+# Environment variables
+.env
+
+# PNPM configuration files
+.pnp
+.pnp.js
+
+# ESLint configuration file
+.eslintrc.json
+
+# Yarn installation state
+.yarn/install-state.gz
+
+# Next.js build directory
+.next
+
+# macOS-specific file
+.DS_Store
+
+# SSL certificates
+.pem
+
+# Build directory
+build
+
+# Heroku configuration file
+Procfile
+
+# Compiled output
+out
+
+# Code coverage reports
+coverage
+
+# Debug logs
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Vercel configuration
+.vercel
+
+# TypeScript build information
+.tsbuildinfo
+
+# Next.js environment types
+next-env.d.ts
