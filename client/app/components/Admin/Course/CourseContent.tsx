@@ -124,256 +124,258 @@ const CourseContent: FC<Props> = ({
   };
 
   return (
-    <div className="w-[80%] m-auto p-3">
+    <div className="w-[80%] m-auto p-3 font-Poppins">
       <form>
+        <div className="!text-[14px] flex justify-end">
+          <span className="text-red-600">*</span>
+          <span className="text-black dark:text-white">&nbsp;Required</span>
+        </div>
+        <br />
         {courseContentData?.map((item: any, index: number) => {
-            const showSectionInput =
-              index === 0 ||
-              item.videoSection !== courseContentData[index - 1].videoSection;
-            return (
-              <>
-                <div
-                  className={`w-full dark:bg-[#cdc8c817] bg-[#71717117] p-4 ${
-                    showSectionInput ? "mt-2" : "mb-0"
-                  }`}
-                >
-                  {showSectionInput && (
-                    <>
-                      <div className="flex w-full items-center">
-                        <input
-                          type="text"
-                          className={`text-[18px] ${
-                            item.videoSection === "Untitled Section"
-                              ? "w-[170px]"
-                              : "w-min"
-                          } font-Poppins cursor-pointer dark:text-white text-black bg-transparent outline-none`}
-                          value={item.videoSection}
-                          onChange={(e) => {
-                            const updatedData = [...courseContentData];
-                            updatedData[index] = {
-                              ...updatedData[index],
-                              videoSection: e.target.value,
-                            };
-                            setCourseContentData(updatedData);
-                          }}
-                        />
-                        <BsPencil className="cursor-pointer dark:text-white text-black" />
-                      </div>
-                      <br />
-                    </>
-                  )}
-                  <div className="flex w-full items-center justify-between my-0">
-                    {isCollapsed[index] ? (
-                      <>
-                        {item.title ? (
-                          <p className="font-Poppins text-black dark:text-white">
-                            {index + 1}. {item.title}
-                          </p>
-                        ) : (
-                          <></>
-                        )}
-                      </>
-                    ) : (
-                      <div></div>
-                    )}
-                    <div className="flex items-center">
-                      <AiOutlineDelete
-                        className={`dark:text-white text-[18px] mr-2 text-black ${
-                          index > 0 ? "cursor-pointer" : "cursor-no-drop"
-                        }`}
-                        onClick={() => {
-                          if (index > 0) {
-                            const updatedData = [...courseContentData];
-                            updatedData.splice(index, 1);
-                            setCourseContentData(updatedData);
-                          }
+          const showSectionInput =
+            index === 0 ||
+            item.videoSection !== courseContentData[index - 1].videoSection;
+          return (
+            <>
+              <div
+                className={`w-full dark:bg-[#cdc8c817] bg-[#71717117] p-4 ${
+                  showSectionInput ? "mt-2" : "mb-0"
+                }`}
+              >
+                {showSectionInput && (
+                  <>
+                    <div className="flex w-full items-center">
+                      <input
+                        type="text"
+                        className={`text-[18px] ${
+                          item.videoSection === "Untitled Section"
+                            ? "w-[170px]"
+                            : "w-min"
+                        } font-Poppins cursor-pointer dark:text-white text-black bg-transparent outline-none`}
+                        value={item.videoSection}
+                        onChange={(e) => {
+                          const updatedData = [...courseContentData];
+                          updatedData[index] = {
+                            ...updatedData[index],
+                            videoSection: e.target.value,
+                          };
+                          setCourseContentData(updatedData);
                         }}
                       />
-                      <MdOutlineKeyboardArrowDown
-                        fontSize="large"
-                        className="dark:text-white text-black cursor-pointer"
-                        style={{
-                          transform: isCollapsed[index]
-                            ? "rotate(180deg)"
-                            : "rotate(0deg)",
+                      <BsPencil className="cursor-pointer dark:text-white text-black" />
+                      <span className="text-red-600">&nbsp;*</span>
+                    </div>
+                    <br />
+                  </>
+                )}
+                <div className="flex w-full items-center justify-between my-0">
+                  {isCollapsed[index] ? (
+                    <>
+                      {item.title ? (
+                        <p className="font-Poppins text-black dark:text-white">
+                          {index + 1}. {item.title}
+                        </p>
+                      ) : (
+                        <></>
+                      )}
+                    </>
+                  ) : (
+                    <div></div>
+                  )}
+                  <div className="flex items-center">
+                    <AiOutlineDelete
+                      className={`dark:text-white text-[18px] mr-2 text-black ${
+                        index > 0 ? "cursor-pointer" : "cursor-no-drop"
+                      }`}
+                      onClick={() => {
+                        if (index > 0) {
+                          const updatedData = [...courseContentData];
+                          updatedData.splice(index, 1);
+                          setCourseContentData(updatedData);
+                        }
+                      }}
+                    />
+                    <MdOutlineKeyboardArrowDown
+                      fontSize="large"
+                      className="dark:text-white text-black cursor-pointer"
+                      style={{
+                        transform: isCollapsed[index]
+                          ? "rotate(180deg)"
+                          : "rotate(0deg)",
+                      }}
+                      onClick={() => handleCollapseToggle(index)}
+                    />
+                  </div>
+                </div>
+                {!isCollapsed[index] && (
+                  <>
+                    <div className="my-3">
+                      <label className={`${styles.label}`}>
+                        Video Title <span className="text-red-600">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="Enter video title here..."
+                        className={`${styles.input} !text-[14px]`}
+                        value={item.title}
+                        onChange={(e) => {
+                          const updatedData = [...courseContentData];
+                          updatedData[index] = {
+                            ...updatedData[index],
+                            title: e.target.value,
+                          };
+                          setCourseContentData(updatedData);
                         }}
-                        onClick={() => handleCollapseToggle(index)}
                       />
                     </div>
-                  </div>
-                  {!isCollapsed[index] && (
-                    <>
-                      <div className="my-3">
-                        <label className={`${styles.label}`}>Video Title</label>
-                        <input
-                          type="text"
-                          placeholder="Enter video title here..."
-                          className={`${styles.input} !text-[14px]`}
-                          value={item.title}
-                          onChange={(e) => {
-                            const updatedData = [...courseContentData];
-                            updatedData[index] = {
-                              ...updatedData[index],
-                              title: e.target.value,
-                            };
-                            setCourseContentData(updatedData);
-                          }}
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <label className={`${styles.label}`}>Video Url</label>
-                        <input
-                          type="text"
-                          placeholder="Enter video url here..."
-                          className={`${styles.input} !text-[14px]`}
-                          value={item.videoUrl}
-                          onChange={(e) => {
-                            const updatedData = [...courseContentData];
-                            updatedData[index] = {
-                              ...updatedData[index],
-                              videoUrl: e.target.value,
-                            };
-                            setCourseContentData(updatedData);
-                          }}
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <label className={`${styles.label}`}>
-                          Video Length (in minutes)
-                        </label>
-                        <input
-                          type="number"
-                          placeholder="Enter video length here..."
-                          className={`${styles.input} !text-[14px]`}
-                          value={item.videoLength}
-                          onChange={(e) => {
-                            const updatedData = [...courseContentData];
-                            updatedData[index] = {
-                              ...updatedData[index],
-                              videoLength: e.target.value,
-                            };
-                            setCourseContentData(updatedData);
-                          }}
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <label className={`${styles.label}`}>
-                          Video Description
-                        </label>
-                        <textarea
-                          rows={8}
-                          cols={30}
-                          placeholder="Enter video description here..."
-                          className={`${styles.input} !h-min py-2 !text-[14px]`}
-                          value={item.description}
-                          onChange={(e) => {
-                            const updatedData = [...courseContentData];
-                            updatedData[index] = {
-                              ...updatedData[index],
-                              description: e.target.value,
-                            };
-                            setCourseContentData(updatedData);
-                          }}
-                        />
-                        <br />
-                      </div>
-                      {item?.links?.map((link: any, linkIndex: number) => (
-                          <div key={linkIndex} className="mb-3 block">
-                            <div className="w-full flex items-center justify-between">
-                              <label className={`${styles.label}`}>
-                                Link {linkIndex + 1}
-                              </label>
-                              <AiOutlineDelete
-                                className={`${
-                                  linkIndex === 0
-                                    ? "cursor-no-drop"
-                                    : "cursor-pointer"
-                                } text-black dark:text-white text-[20px]`}
-                                onClick={() => {
-                                  linkIndex === 0
-                                    ? null
-                                    : handleRemoveLink(index, linkIndex);
-                                }}
-                              />
-                            </div>
-                            <input
-                              type="text"
-                              placeholder="Enter link title here..."
-                              className={`${styles.input} !text-[14px]`}
-                              value={link.title}
-                              onChange={(e) => {
-                                const updatedData = [...courseContentData];
-                                updatedData[index].links = [
-                                  ...updatedData[index].links.slice(
-                                    0,
-                                    linkIndex
-                                  ),
-                                  {
-                                    title: e.target.value,
-                                    url: updatedData[index].links[linkIndex]
-                                      .url,
-                                  },
-                                  ...updatedData[index].links.slice(
-                                    linkIndex + 1
-                                  ),
-                                ];
-                                setCourseContentData(updatedData);
-                              }}
-                            />
-                            <input
-                              type="text"
-                              placeholder="Enter link url here..."
-                              className={`${styles.input} !text-[14px]`}
-                              value={link.url}
-                              onChange={(e) => {
-                                const updatedData = [...courseContentData];
-                                updatedData[index].links = [
-                                  ...updatedData[index].links.slice(
-                                    0,
-                                    linkIndex
-                                  ),
-                                  {
-                                    title:
-                                      updatedData[index].links[linkIndex].title,
-                                    url: e.target.value,
-                                  },
-                                  ...updatedData[index].links.slice(
-                                    linkIndex + 1
-                                  ),
-                                ];
-                                setCourseContentData(updatedData);
-                              }}
-                            />
-                          </div>
-                        ))}
+                    <div className="mb-3">
+                      <label className={`${styles.label}`}>
+                        Video Url <span className="text-red-600">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="Enter video url here..."
+                        className={`${styles.input} !text-[14px]`}
+                        value={item.videoUrl}
+                        onChange={(e) => {
+                          const updatedData = [...courseContentData];
+                          updatedData[index] = {
+                            ...updatedData[index],
+                            videoUrl: e.target.value,
+                          };
+                          setCourseContentData(updatedData);
+                        }}
+                      />
+                    </div>
+                    <div className="mb-3">
+                      <label className={`${styles.label}`}>
+                        Video Length (in minutes){" "}
+                        <span className="text-red-600">*</span>
+                      </label>
+                      <input
+                        type="number"
+                        placeholder="Enter video length here..."
+                        className={`${styles.input} !text-[14px]`}
+                        value={item.videoLength}
+                        onChange={(e) => {
+                          const updatedData = [...courseContentData];
+                          updatedData[index] = {
+                            ...updatedData[index],
+                            videoLength: e.target.value,
+                          };
+                          setCourseContentData(updatedData);
+                        }}
+                      />
+                    </div>
+                    <div className="mb-3">
+                      <label className={`${styles.label}`}>
+                        Video Description{" "}
+                        <span className="text-red-600">*</span>
+                      </label>
+                      <textarea
+                        rows={8}
+                        cols={30}
+                        placeholder="Enter video description here..."
+                        className={`${styles.input} !h-min py-2 !text-[14px]`}
+                        value={item.description}
+                        onChange={(e) => {
+                          const updatedData = [...courseContentData];
+                          updatedData[index] = {
+                            ...updatedData[index],
+                            description: e.target.value,
+                          };
+                          setCourseContentData(updatedData);
+                        }}
+                      />
                       <br />
-                      <div className="inline-block mb-4">
-                        <p
-                          className="flex items-center text-[16px] dark:text-white text-black cursor-pointer"
-                          onClick={() => handleAddLink(index)}
-                        >
-                          <BsLink45Deg className="mr-2" />
-                          Add Link
-                        </p>
+                    </div>
+                    {item?.links?.map((link: any, linkIndex: number) => (
+                      <div key={linkIndex} className="mb-3 block">
+                        <div className="w-full flex items-center justify-between">
+                          <label className={`${styles.label}`}>
+                            Link {linkIndex + 1}{" "}
+                            <span className="text-red-600">*</span>
+                          </label>
+                          <AiOutlineDelete
+                            className={`${
+                              linkIndex === 0
+                                ? "cursor-no-drop"
+                                : "cursor-pointer"
+                            } text-black dark:text-white text-[20px]`}
+                            onClick={() => {
+                              linkIndex === 0
+                                ? null
+                                : handleRemoveLink(index, linkIndex);
+                            }}
+                          />
+                        </div>
+                        <input
+                          type="text"
+                          placeholder="Enter link title here..."
+                          className={`${styles.input} !text-[14px]`}
+                          value={link.title}
+                          onChange={(e) => {
+                            const updatedData = [...courseContentData];
+                            updatedData[index].links = [
+                              ...updatedData[index].links.slice(0, linkIndex),
+                              {
+                                title: e.target.value,
+                                url: updatedData[index].links[linkIndex].url,
+                              },
+                              ...updatedData[index].links.slice(linkIndex + 1),
+                            ];
+                            setCourseContentData(updatedData);
+                          }}
+                        />
+                        <input
+                          type="text"
+                          placeholder="Enter link url here..."
+                          className={`${styles.input} !text-[14px]`}
+                          value={link.url}
+                          onChange={(e) => {
+                            const updatedData = [...courseContentData];
+                            updatedData[index].links = [
+                              ...updatedData[index].links.slice(0, linkIndex),
+                              {
+                                title:
+                                  updatedData[index].links[linkIndex].title,
+                                url: e.target.value,
+                              },
+                              ...updatedData[index].links.slice(linkIndex + 1),
+                            ];
+                            setCourseContentData(updatedData);
+                          }}
+                        />
                       </div>
-                    </>
-                  )}
-                  <br />
-                  {index === courseContentData.length - 1 && (
-                    <div>
+                    ))}
+                    <br />
+                    <div className="inline-block mb-4">
                       <p
                         className="flex items-center text-[16px] dark:text-white text-black cursor-pointer"
-                        onClick={(e: any) => newContentHandler(item)}
+                        onClick={() => handleAddLink(index)}
                       >
-                        <AiOutlinePlusCircle className="mr-2" />
-                        Add New Content
+                        <BsLink45Deg className="mr-2" />
+                        Add Link
                       </p>
                     </div>
-                  )}
-                </div>
-              </>
-            );
-          })}
+                  </>
+                )}
+                <br />
+                {index === courseContentData.length - 1 && (
+                  <div>
+                    <p
+                      className="flex items-center text-[16px] dark:text-white text-black cursor-pointer"
+                      onClick={(e: any) => newContentHandler(item)}
+                    >
+                      <AiOutlinePlusCircle className="mr-2" />
+                      Add New Content
+                    </p>
+                  </div>
+                )}
+              </div>
+            </>
+          );
+        })}
         <br />
         <div
           className="flex items-center text-[18px] dark:text-white text-black cursor-pointer"

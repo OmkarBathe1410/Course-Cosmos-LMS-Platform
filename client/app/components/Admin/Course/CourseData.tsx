@@ -70,10 +70,16 @@ const CourseData: FC<Props> = ({
   };
 
   return (
-    <div className="w-[80%] m-auto block">
+    <div className="w-[80%] m-auto block font-Poppins">
+      <div className="!text-[14px] flex justify-end">
+        <span className="text-red-600">*</span>
+        <span className="text-black dark:text-white">&nbsp;Required</span>
+      </div>
+      <br />
       <div>
         <label htmlFor="email" className={`${styles.label}`}>
-          What are the benefits for students in this course?
+          What are the benefits for students in this course?{" "}
+          <span className="text-red-600">*</span>
         </label>
         <br />
         {benefits?.map((benefit: any, index: number) => (
@@ -106,7 +112,8 @@ const CourseData: FC<Props> = ({
       <br />
       <div>
         <label htmlFor="email" className={`${styles.label}`}>
-          What are the prerequisites for starting this course?
+          What are the prerequisites for starting this course?{" "}
+          <span className="text-red-600">*</span>
         </label>
         <br />
         {prerequisites?.map((prerequisite: any, index: number) => (

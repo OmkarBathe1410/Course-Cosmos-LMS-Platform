@@ -2,6 +2,7 @@
 import { useGetLayoutDataQuery } from "../../../../redux/features/layout/layoutApi";
 import { styles } from "../../../../app/styles/style";
 import React, { FC, useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 
 type Props = {
   courseInfo: any;
@@ -19,6 +20,7 @@ const CourseInformation: FC<Props> = ({
   const [dragging, setDragging] = useState(false);
   const { data } = useGetLayoutDataQuery("Categories", {});
   const [categories, setCategories] = useState([]);
+  const levels = ["Beginner", "Intermediate", "Advanced", "Expert"];
 
   useEffect(() => {
     if (data) {
@@ -28,7 +30,18 @@ const CourseInformation: FC<Props> = ({
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    setActive(active + 1);
+    if (
+      courseInfo.name.trim() === "" ||
+      courseInfo.description.trim() === "" ||
+      courseInfo.category.trim() === "" ||
+      courseInfo.level.trim() === "" ||
+      courseInfo.tags.trim() === "" ||
+      courseInfo.demoVideoUrl.trim() === ""
+    ) {
+      toast.error("Please enter all details!");
+    } else {
+      setActive(active + 1);
+    }
   };
 
   const handleFileChange = (e: any) => {
@@ -73,10 +86,15 @@ const CourseInformation: FC<Props> = ({
   };
 
   return (
-    <div className="w-[80%] m-auto">
+    <div className="w-[80%] m-auto font-Poppins">
       <form onSubmit={handleSubmit} className={`${styles.label}`}>
+        <div className="!text-[14px] flex justify-end">
+          <span className="text-red-600">*</span>
+          <span className="text-black dark:text-white">&nbsp;Required</span>
+        </div>
+        <br />
         <div>
-          <label htmlFor="">Course Name</label>
+          <label htmlFor="">Course Name <span className="text-red-600">*</span></label>
           <input
             required
             type="name"
@@ -92,8 +110,9 @@ const CourseInformation: FC<Props> = ({
         </div>
         <br />
         <div className="mb-5">
-          <label htmlFor="">Course Description</label>
+          <label htmlFor="">Course Description <span className="text-red-600">*</span></label>
           <textarea
+            required
             name=""
             id=""
             cols={30}
@@ -109,7 +128,7 @@ const CourseInformation: FC<Props> = ({
         <br />
         <div className="w-full flex justify-between">
           <div className="w-[45%]">
-            <label htmlFor="">Course Price</label>
+            <label htmlFor="">Course Price <span className="text-red-600">*</span></label>
             <input
               required
               type="number"
@@ -128,7 +147,6 @@ const CourseInformation: FC<Props> = ({
               Estimated Price (optional)
             </label>
             <input
-              required
               type="number"
               id="price"
               name=""
@@ -145,7 +163,7 @@ const CourseInformation: FC<Props> = ({
         <div className="w-full flex justify-between">
           <div className="w-[45%]">
             <label htmlFor="email" className={`${styles.label}`}>
-              Course Tags
+              Course Tags <span className="text-red-600">*</span>
             </label>
             <input
               required
@@ -162,9 +180,10 @@ const CourseInformation: FC<Props> = ({
           </div>
           <div className="w-[50%]">
             <label htmlFor="" className={`${styles.label} w-[50%]`}>
-              Course Category
+              Course Category <span className="text-red-600">*</span>
             </label>
             <select
+              required
               name=""
               id=""
               className={`${styles.input}`}
@@ -175,7 +194,7 @@ const CourseInformation: FC<Props> = ({
             >
               <option
                 value=""
-                className="dark:bg-neutral-900 bg-gray-200 text-black dark:text-white"
+                className="dark:bg-neutral-900 bg-gray-200 text-black dark:text-white"              
               >
                 Select Category
               </option>
@@ -195,24 +214,38 @@ const CourseInformation: FC<Props> = ({
         <div className="w-full flex justify-between">
           <div className="w-[45%]">
             <label htmlFor="" className={`${styles.label}`}>
-              Course Level
+              Course Level <span className="text-red-600">*</span>
             </label>
-            <input
+            <select
               required
-              type="text"
-              id="level"
               name=""
+              id=""
+              className={`${styles.input}`}
               value={courseInfo.level}
               onChange={(e: any) =>
                 setCourseInfo({ ...courseInfo, level: e.target.value })
               }
-              placeholder="Enter course level here..."
-              className={`${styles.input}`}
-            />
+            >
+              <option
+                value=""
+                className="dark:bg-neutral-900 bg-gray-200 text-black dark:text-white"
+              >
+                Select Level
+              </option>
+              {levels?.map((item: string, index: number) => (
+                <option
+                  className="dark:bg-neutral-900 bg-gray-200 text-black dark:text-white"
+                  value={item}
+                  key={index}
+                >
+                  {item}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="w-[50%]">
             <label htmlFor="" className={`${styles.label} w-[50%]`}>
-              Demo Url
+              Demo Url <span className="text-red-600">*</span>
             </label>
             <input
               required
@@ -231,6 +264,7 @@ const CourseInformation: FC<Props> = ({
         <br />
         <div className="w-full">
           <input
+            required
             type="file"
             id="file"
             accept="image/*"
@@ -256,7 +290,7 @@ const CourseInformation: FC<Props> = ({
               </picture>
             ) : (
               <span className="text-black dark:text-white">
-                Drag and drop your thumbnail here or click to browse
+                Drag and drop your thumbnail here or click to browse <span className="text-red-600">*</span>
               </span>
             )}
           </label>

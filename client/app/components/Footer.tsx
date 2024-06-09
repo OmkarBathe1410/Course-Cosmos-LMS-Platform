@@ -44,7 +44,7 @@ const Footer = () => {
                 </li>
                 <li>
                   <Link
-                    href={"/privacy-policy"}
+                    href={"/policy"}
                     className="text-base text-black dark:text-gray-300 dark:hover:text-white"
                   >
                     <MdOutlinePrivacyTip
@@ -96,19 +96,7 @@ const Footer = () => {
                     />{" "}
                     My Account
                   </Link>
-                </li>
-                <li>
-                  <Link
-                    href={"/course-dashboard"}
-                    className="text-base text-black dark:text-gray-300 dark:hover:text-white"
-                  >
-                    <MdOutlineDashboard
-                      size={20}
-                      className="mt-[-2px] inline text-slate-950 dark:text-white"
-                    />{" "}
-                    Course Dashboard
-                  </Link>
-                </li>
+                </li>                
               </ul>
             </div>
             <div className="space-y-3">

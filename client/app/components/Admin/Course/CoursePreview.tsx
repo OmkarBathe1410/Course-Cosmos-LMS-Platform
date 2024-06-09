@@ -35,7 +35,7 @@ const CoursePreview: FC<Props> = ({
   };
 
   return (
-    <div className="w-[80%] m-auto py-5 mb-5">
+    <div className="w-[80%] m-auto py-5 mb-5 !font-Poppins">
       <div className="w-full relative">
         <div className="w-full">
           <CoursePlayer
@@ -68,12 +68,12 @@ const CoursePreview: FC<Props> = ({
         )}
         <div className="flex items-center">
           <div
-            className={`${styles.button} !w-[170px] my-3 font-Poppins !bg-[crimson] cursor-not-allowed`}
+            className={`${styles.button} !w-max !h-max my-3 font-Poppins !bg-[crimson] cursor-not-allowed`}
           >
             Buy Now ₹{courseData?.price}
           </div>
         </div>
-        <div className="flex items-center">
+        {/* <div className="flex items-center">
           <input
             type="text"
             name=""
@@ -86,7 +86,7 @@ const CoursePreview: FC<Props> = ({
           >
             Apply
           </div>
-        </div>
+        </div> */}
         <p className="pb-1 dark:text-white text-slate-900 !text-[16px]">
           • Source code included
         </p>
