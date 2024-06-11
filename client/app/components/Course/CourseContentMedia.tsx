@@ -180,7 +180,7 @@ const CourseContentMedia = ({
     reviewSuccess,
     reviewError,
     replyToReviewSuccess,
-    replyToReviewError
+    replyToReviewError,
   ]);
 
   const handleAnswerSubmit = () => {
@@ -342,7 +342,7 @@ const CourseContentMedia = ({
       {activeBar === 3 && (
         <>
           <div className="w-full">
-            {!isReviewExists && (
+            {!isReviewExists && user?.role !== "admin" && (
               <>
                 <div className="w-full flex">
                   <Image
@@ -448,92 +448,80 @@ const CourseContentMedia = ({
                         <span
                           className="800px:!pl-10 dark:text-[#ffffff83] text-[#000000be] cursor-pointer mr-2"
                           onClick={() => {
-                            setIsReviewReply(!isReviewReply),
-                              setReviewId(item._id);
+                            setIsReviewReply(true);
+                            setReviewId(item._id);
                           }}
                         >
-                          {!isReviewReply ? "Add Reply" : "Cancel Reply"}
+                          Add Reply
                         </span>
-                        <BiMessage
-                          size={20}
-                          className={`${
-                            isReviewReply
-                              ? "hidden"
-                              : "cursor-pointer dark:text-[#ffffff83] text-[#0000007e]"
-                          }`}
-                        />
                       </div>
                     )}
 
                   {isReviewReply && reviewId === item._id && (
                     <>
-                      {item?.commentReplies?.map((item: any, index: number) => (
-                        <div
-                          key={index}
-                          className="w-full flex 800px:!ml-16 my-5 dark:text-white text-black"
+                      <div className="w-full flex relative dark:text-white text-black">
+                        <input
+                          type="text"
+                          placeholder="Enter your reply..."
+                          value={reviewReply}
+                          onChange={(e: any) => setReviewReply(e.target.value)}
+                          className={`block 800px:ml-10 mt-2 outline-none bg-transparent border-b border-[#00000027] dark:text-white text-black dark:border-[#fff] p-[5px] w-[95%] ${
+                            reviewReply === "" ||
+                            (replyToReviewCreationLoading &&
+                              "cursor-not-allowed")
+                          }`}
+                        />
+                        <button
+                          type="submit"
+                          className="px-3 py-1 bg-green-400 rounded-lg absolute right-0 bottom-2"
+                          onClick={handleReviewReplySubmit}
                         >
-                          <div className="">
-                            <Image
-                              src={
-                                item?.user?.avatar?.url
-                                  ? item.user?.avatar?.url
-                                  : defaultAvatar
-                              }
-                              alt=""
-                              width={50}
-                              height={50}
-                              className="w-[50px] h-[50px] rounded-full object-cover"
-                            />
-                          </div>
-                          <div className="pl-3">
-                            <div className="flex items-center">
-                              <h5 className="text-[16px] dark:text-white text-black">
-                                {item?.user.name}
-                              </h5>
-                              {item?.user.role === "admin" && (
-                                <VscVerifiedFilled
-                                  className="dark:text-green-400 text-blue-700 ml-2"
-                                  size={25}
-                                />
-                              )}
-                            </div>
-                            <p className="dark:text-white text-[#000000b8]">
-                              {item?.comment}
-                            </p>
-                            <small className="dark:text-[#ffffff83] text-black capitalize">
-                              {format(item?.createdAt)} •
-                            </small>
-                          </div>
-                        </div>
-                      ))}
-                      <>
-                        <div className="w-full flex relative dark:text-white text-black">
-                          <input
-                            type="text"
-                            placeholder="Enter your reply..."
-                            value={reviewReply}
-                            onChange={(e: any) =>
-                              setReviewReply(e.target.value)
-                            }
-                            className={`block 800px:ml-10 mt-2 outline-none bg-transparent border-b border-[#00000027] dark:text-white text-black dark:border-[#fff] p-[5px] w-[95%] ${
-                              reviewReply === "" ||
-                              (replyToReviewCreationLoading &&
-                                "cursor-not-allowed")
-                            }`}
-                          />
-                          <button
-                            type="submit"
-                            className="px-3 py-1 bg-green-400 rounded-lg absolute right-0 bottom-2"
-                            onClick={handleReviewReplySubmit}
-                            disabled={
-                              reviewReply === "" || replyToReviewCreationLoading
-                            }
-                          >
-                            Submit
-                          </button>
-                        </div>
-                      </>
+                          Submit
+                        </button>
+                      </div>
                     </>
+                  )}
+
+                  {item?.commentReplies?.map(
+                    (replyItem: any, replyIndex: number) => (
+                      <div
+                        key={replyIndex}
+                        className="w-full flex 800px:!ml-16 my-5 dark:text-white text-black"
+                      >
+                        <div className="">
+                          <Image
+                            src={
+                              replyItem?.user?.avatar?.url
+                                ? replyItem.user?.avatar?.url
+                                : defaultAvatar
+                            }
+                            alt=""
+                            width={50}
+                            height={50}
+                            className="w-[50px] h-[50px] rounded-full object-cover"
+                          />
+                        </div>
+                        <div className="pl-3">
+                          <div className="flex items-center">
+                            <h5 className="text-[16px] dark:text-white text-black">
+                              {replyItem?.user.name}
+                            </h5>
+                            {replyItem?.user.role === "admin" && (
+                              <VscVerifiedFilled
+                                className="dark:text-green-400 text-blue-700 ml-2"
+                                size={25}
+                              />
+                            )}
+                          </div>
+                          <p className="dark:text-white text-[#000000de]">
+                            {replyItem?.comment}
+                          </p>
+                          <small className="dark:text-[#ffffff83] text-black capitalize">
+                            {format(replyItem?.createdAt)} •
+                          </small>
+                        </div>
+                      </div>
+                    )
                   )}
                 </div>
               )

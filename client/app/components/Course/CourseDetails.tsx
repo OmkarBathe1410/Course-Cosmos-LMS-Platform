@@ -161,7 +161,7 @@ const CourseDetails = ({
                 (item: any, index: number) => (
                   <div className="w-full pb-4" key={index}>
                     <div className="flex">
-                      <div>
+                      <div className="w-[50px] h-[50px]">
                         <Image
                           src={
                             item.user?.avatar?.url
@@ -169,9 +169,9 @@ const CourseDetails = ({
                               : defaultAvatar
                           }
                           alt=""
-                          width={75}
-                          height={75}
-                          className="rounded-full object-cover"
+                          width={50}
+                          height={50}
+                          className="w-[60px] h-[35px] rounded-full object-cover"
                         />
                       </div>
                       <div className="hidden 800px:block pl-2">

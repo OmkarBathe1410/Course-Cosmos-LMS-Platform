@@ -90,11 +90,11 @@ export const courseApi = apiSlice.injectEndpoints({
       }),
     }),
     addReplyToReview: builder.mutation({
-      query: ({ reviewReply, courseId, reviewId }: any) => ({
+      query: ({ comment, courseId, reviewId }: any) => ({
         url: `add-review-reply`,
         method: "PUT",
         body: {
-          reviewReply,
+          comment,
           courseId,
           reviewId,
         },

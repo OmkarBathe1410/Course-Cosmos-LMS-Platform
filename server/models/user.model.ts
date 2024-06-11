@@ -1,4 +1,3 @@
-// Importing necessary modules for MongoDB object modeling, password hashing, and token generation
 import mongoose, { Document, Model, Schema } from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";

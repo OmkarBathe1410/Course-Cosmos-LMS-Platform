@@ -1,8 +1,6 @@
 import mongoose, { Document, Model, Schema } from "mongoose";
 import { IUser } from "./user.model";
 
-// Defines a comment document interface extending the base Document type
-// It includes properties for the user, question, and optional question replies
 interface IComment extends Document {
   user: IUser;
   question: string;

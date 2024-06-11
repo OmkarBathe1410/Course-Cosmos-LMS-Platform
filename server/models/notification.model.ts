@@ -1,4 +1,3 @@
-// Import Mongoose library and its components
 import mongoose, { Document, Schema, Model } from "mongoose";
 
 // Define the INotification interface that extends Mongoose Document interface
