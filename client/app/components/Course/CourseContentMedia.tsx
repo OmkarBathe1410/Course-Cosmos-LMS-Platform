@@ -106,9 +106,6 @@ const CourseContentMedia = ({
   };
 
   useEffect(() => {
-    if (questionCreationLoading) {
-      toast.loading("Question is getting added...");
-    }
     if (isSuccess) {
       setQuestion("");
       refetch();
@@ -172,7 +169,6 @@ const CourseContentMedia = ({
       }
     }
   }, [
-    questionCreationLoading,
     isSuccess,
     answerSuccess,
     error,
