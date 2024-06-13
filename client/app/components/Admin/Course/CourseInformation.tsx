@@ -94,7 +94,9 @@ const CourseInformation: FC<Props> = ({
         </div>
         <br />
         <div>
-          <label htmlFor="">Course Name <span className="text-red-600">*</span></label>
+          <label htmlFor="">
+            Course Name <span className="text-red-600">*</span>
+          </label>
           <input
             required
             type="name"
@@ -110,7 +112,9 @@ const CourseInformation: FC<Props> = ({
         </div>
         <br />
         <div className="mb-5">
-          <label htmlFor="">Course Description <span className="text-red-600">*</span></label>
+          <label htmlFor="">
+            Course Description <span className="text-red-600">*</span>
+          </label>
           <textarea
             required
             name=""
@@ -128,7 +132,9 @@ const CourseInformation: FC<Props> = ({
         <br />
         <div className="w-full flex justify-between">
           <div className="w-[45%]">
-            <label htmlFor="">Course Price <span className="text-red-600">*</span></label>
+            <label htmlFor="">
+              Course Price <span className="text-red-600">*</span>
+            </label>
             <input
               required
               type="number"
@@ -194,7 +200,7 @@ const CourseInformation: FC<Props> = ({
             >
               <option
                 value=""
-                className="dark:bg-neutral-900 bg-gray-200 text-black dark:text-white"              
+                className="dark:bg-neutral-900 bg-gray-200 text-black dark:text-white"
               >
                 Select Category
               </option>
@@ -290,7 +296,8 @@ const CourseInformation: FC<Props> = ({
               </picture>
             ) : (
               <span className="text-black dark:text-white">
-                Drag and drop your thumbnail here or click to browse <span className="text-red-600">*</span>
+                Drag and drop your thumbnail here or click to browse{" "}
+                <span className="text-red-600">*</span>
               </span>
             )}
           </label>

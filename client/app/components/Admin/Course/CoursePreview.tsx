@@ -18,7 +18,7 @@ const CoursePreview: FC<Props> = ({
   setActive,
   courseData,
   handleCourseCreate,
-  isEdit
+  isEdit,
 }) => {
   const discountPercentage =
     ((courseData?.estimatedPrice - courseData?.price) /
@@ -155,9 +155,7 @@ const CoursePreview: FC<Props> = ({
           className={`${styles.prev_next_button}`}
           onClick={() => createCourse()}
         >
-          {
-            isEdit ? 'Update' : 'Create'
-          }
+          {isEdit ? "Update" : "Create"}
         </div>
       </div>
       <br />
